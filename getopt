@@ -1,0 +1,12 @@
+#include <unistd.h>
+
+int getopt(int argc, char * const argv[],const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+
+getopt用于解析命令行参数，参数arc，argv是main函数中的argc，argv。argv中以-开头的参数叫做选项参数（option element），选项参数中的字符都是选项字符，如果重复的调用getopt就会相继返回所
+有选项参数中的选项字符。
+变量optind是要处理的下一个元素在argv中的索引，系统初始这个值为1，调用者可以把这个值重置为1以便重新遍历argv，如果getopt找到选项字符就会返回这个字符，并且更新外部变量optind和静态变量
+nextchar的值。如果getopt遍历完所有的选项参数就会返回-1，并且optind的值将会是第一个非选项参数的索引。
+参数optstring包含了合法的选项字符，如果这里的字符后跟一个冒号表示这个字符选项需要一个参数，那么getopt会在optarg中赋一个指针，这个指针指向和选项参数同一个argv元素的剩余字符或者下一个
+argv参数
